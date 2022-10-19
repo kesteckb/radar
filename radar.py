@@ -5,8 +5,9 @@ import turtle
 from splash import *
 from tkinter import *
 from PIL import ImageTk, Image
-from bandit_test import sweep
+from scan_radar import sweep
 from inbounds import *
+import bandit
 
 # Create Window
 root = Tk()
@@ -50,56 +51,60 @@ root.protocol("WM_DELETE_WINDOW", handler)
 run = True
 
 # Main Loop
-position = None
+bogeys = []
 hdg = random.randrange(0, 360)
 degree_sign = u'\N{DEGREE SIGN}'
 while run:
     root.update()
 
     # Find bandits
-    position = sweep(position)
-    bandit_x, bandit_y = position
-
+    bogeys = sweep(bogeys)
+    
     # Delete bogeys from previous frame
     my_canvas.delete("bogey")
     
-    # Check that the coordinates fall within the radar window
-    if is_inbounds(bandit_x, bandit_y):
+    # Handle bogeys
+    for bogey in bogeys:
+        bandit_x, bandit_y = bogey.get_pos()
 
-        # Create Bogey Symbol
-        my_canvas.create_rectangle(
-                bandit_x-10, 
-                bandit_y-10, 
-                bandit_x+10, 
-                bandit_y+10,
-                outline = "lime", 
-                fill=None,
-                tag="bogey",
-                width=3,
-            )
+        # Check that the coordinates fall within the radar window
+        if is_inbounds(bandit_x, bandit_y):
 
-        my_canvas.create_oval(
-                bandit_x - 3,
-                bandit_y - 3,
-                bandit_x + 3,
-                bandit_y + 3,
-                outline = "lime",
-                fill = "lime",
-                width = 3,
-                tag = "bogey",            
-            )
-    
-        my_canvas.create_line(
-                bandit_x, 
-                bandit_y, 
-                bandit_x + 18, 
-                bandit_y + 18, 
-                fill="lime", 
-                width=3, 
-                tag="bogey",
-            )
+            # Create Bogey Symbol
+            my_canvas.create_rectangle(
+                    bandit_x-10, 
+                    bandit_y-10, 
+                    bandit_x+10, 
+                    bandit_y+10,
+                    outline = "lime", 
+                    fill=None,
+                    tag="bogey",
+                    width=3,
+                )
+
+            my_canvas.create_oval(
+                    bandit_x - 3,
+                    bandit_y - 3,
+                    bandit_x + 3,
+                    bandit_y + 3,
+                    outline = "lime",
+                    fill = "lime",
+                    width = 3,
+                    tag = "bogey",            
+                )
+        
+            my_canvas.create_line(
+                    bandit_x, 
+                    bandit_y, 
+                    bandit_x + 18, 
+                    bandit_y + 18, 
+                    fill="lime", 
+                    width=3, 
+                    tag="bogey",
+                )
 
     # Get Heading
+    # TODO: handle as input from sensor
     hdg += random.randrange(-3, 3)
     if hdg < 0:
         hdg = 360 - hdg
@@ -115,7 +120,7 @@ while run:
         )
 
     # Delay screen refresh
-    time.sleep(.005)
+    time.sleep(3)
     
 # Destroy Window
 root.destroy()

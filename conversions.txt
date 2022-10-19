@@ -1,9 +1,0 @@
-1 gallon of gasoline = 6 pounds
-
-
-Radar limits:
-    if distance from plane icon > some number
-    or
-    if Y < level with the plane
-    or
-    if further from another distance below a particular Y
