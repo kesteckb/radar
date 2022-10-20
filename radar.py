@@ -107,7 +107,7 @@ while run:
     # TODO: handle as input from sensor
     hdg += random.randrange(-3, 3)
     if hdg < 0:
-        hdg = 360 - hdg
+        hdg = 360 + hdg
     elif hdg > 359:
         hdg = hdg - 360
     my_canvas.create_text(
