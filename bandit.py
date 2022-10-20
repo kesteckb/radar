@@ -27,10 +27,20 @@ class Bandit():
         return (self.prev_x, self.prev_y)
 
     def get_direction(self):
+        # Return a default direction when direction can't be determined
+        if self.prev_x is None or self.prev_y is None:
+            return (self.pos_x + 18, self.pos_y + 18)
+        
+        # Find the direction of movement
         pointer_x = (self.pos_x - self.prev_x)
         pointer_y = (self.pos_y - self.prev_y)
+        # Silly fix to dividing by 0 error
+        if pointer_x == 0:
+            pointer_x += 1
         slope = pointer_y / pointer_x
         
+        # Determine the coordinates for the end of the direction line
+        # TODO: Fix divide by zero problem
         if self.pos_x < self.prev_x:
             x_change = -sqrt(pow(HDG_LINE_LENGTH, 2) / (pow(slope, 2) + 1))
             if slope > 0:

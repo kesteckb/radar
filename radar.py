@@ -5,7 +5,7 @@ import turtle
 from splash import *
 from tkinter import *
 from PIL import ImageTk, Image
-from scan_radar import sweep
+from sweep import sweep
 from inbounds import *
 import bandit
 
@@ -54,20 +54,21 @@ run = True
 bogeys = []
 hdg = random.randrange(0, 360)
 degree_sign = u'\N{DEGREE SIGN}'
+
 while run:
     root.update()
-
-    # Find bandits
-    bogeys = sweep(bogeys)
 
     # Delete bogeys from previous frame
     my_canvas.delete("bogey")
     
+    # Find bandits
+    bogeys = sweep(bogeys)
+
     # Handle bogeys
-    if bogeys is not None and len(bogeys) > 0:
+    if bogeys is not None or len(bogeys) > 0:
         for bogey in bogeys:
             bandit_x, bandit_y = bogey.get_position()
-            direct_x, direct_y = bogey.get_previous()
+            direct_x, direct_y = bogey.get_direction()
 
             # Create Bogey Symbol
             my_canvas.create_rectangle(

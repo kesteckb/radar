@@ -3,11 +3,10 @@ import bandit
 from inbounds import is_inbounds
 
 # Generate Number of bogeys  
-def sweep(bogeys):
-    
+def sweep(bogeys):  
     # If there are no bogeys, generate some
-    if bogeys is None and len(bogeys) == 0:
-        num_bogeys = random.randint(1, 4)
+    if bogeys is None or len(bogeys) == 0:
+        num_bogeys = random.randrange(1, 4)
         for _ in range(num_bogeys):
             x = random.randrange(100, 700)
             y = random.randrange(150, 415)
@@ -15,7 +14,7 @@ def sweep(bogeys):
     
     # If there are bogeys, move them. Delete those that go out of radar contact
     else:
-        for idx, bogey in enumerate(bogeys):
+        for bogey in bogeys:
             # Update previous position
             bogey.set_previous(bogey.get_position())
     
@@ -28,23 +27,13 @@ def sweep(bogeys):
 
             # if not inbounds, delete
             new_x, new_y = bogey.get_position()
-            if not is_inbounds(new_x, new_y):
+            if is_inbounds(new_x, new_y) == False:
                 del(bogey)
 
-        return bogeys
+    return bogeys
 
 
 # Test
-# bogeys = sweep([])
-# for bogey in bogeys:
-#     print(bogey)
-
-# delete_bogey(bogeys, 2)
-# print("\n")
-# for bogey in bogeys:
-#     print(bogey)
-
-
 # bogeys = []
 # bandit_a = bandit.Bandit(130, 240)
 # bandit_b = bandit.Bandit(340, 300)
