@@ -6,9 +6,8 @@ from inbounds import is_inbounds
 def sweep(bogeys):
     
     # If there are no bogeys, generate some
-    if len(bogeys) == 0:
+    if bogeys is None and len(bogeys) == 0:
         num_bogeys = random.randint(1, 4)
-        print(num_bogeys)
         for _ in range(num_bogeys):
             x = random.randrange(100, 700)
             y = random.randrange(150, 415)
@@ -46,14 +45,14 @@ def sweep(bogeys):
 #     print(bogey)
 
 
-bogeys = []
-bandit_a = bandit.Bandit(130, 240)
-bandit_b = bandit.Bandit(340, 300)
-bandit_c = bandit.Bandit(490, 150)
-bogeys.append(bandit_a)
-bogeys.append(bandit_b)
-bogeys.append(bandit_c)
+# bogeys = []
+# bandit_a = bandit.Bandit(130, 240)
+# bandit_b = bandit.Bandit(340, 300)
+# bandit_c = bandit.Bandit(490, 150)
+# bogeys.append(bandit_a)
+# bogeys.append(bandit_b)
+# bogeys.append(bandit_c)
 
-bogeys = sweep(bogeys)
-for bogey in bogeys:
-    print(bogey)
+# bogeys = sweep(bogeys)
+# for bogey in bogeys:
+#     print(bogey)

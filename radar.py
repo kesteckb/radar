@@ -59,16 +59,15 @@ while run:
 
     # Find bandits
     bogeys = sweep(bogeys)
-    
+
     # Delete bogeys from previous frame
     my_canvas.delete("bogey")
     
     # Handle bogeys
-    for bogey in bogeys:
-        bandit_x, bandit_y = bogey.get_pos()
-
-        # Check that the coordinates fall within the radar window
-        if is_inbounds(bandit_x, bandit_y):
+    if bogeys is not None and len(bogeys) > 0:
+        for bogey in bogeys:
+            bandit_x, bandit_y = bogey.get_position()
+            direct_x, direct_y = bogey.get_previous()
 
             # Create Bogey Symbol
             my_canvas.create_rectangle(
@@ -96,8 +95,8 @@ while run:
             my_canvas.create_line(
                     bandit_x, 
                     bandit_y, 
-                    bandit_x + 18, 
-                    bandit_y + 18, 
+                    direct_x, 
+                    direct_y, 
                     fill="lime", 
                     width=3, 
                     tag="bogey",
@@ -120,7 +119,7 @@ while run:
         )
 
     # Delay screen refresh
-    time.sleep(3)
+    time.sleep(1)
     
 # Destroy Window
 root.destroy()
