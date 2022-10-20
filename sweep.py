@@ -14,13 +14,13 @@ def sweep(bogeys):
     
     # If there are bogeys, move them. Delete those that go out of radar contact
     else:
-        for bogey in bogeys:
+        for idx, bogey in enumerate(bogeys):
             # Update previous position
             bogey.set_previous(bogey.get_position())
     
             # Change position
-            x_shift = random.randrange(-(random.randrange(0, 10)), random.randrange(0, 10))
-            y_shift = random.randrange(-(random.randrange(0, 10)), random.randrange(0, 10))
+            x_shift = random.randrange(-(random.randrange(1, 10)), random.randrange(1, 10))
+            y_shift = random.randrange(-(random.randrange(1)), random.randrange(1, 10))
 
             current_x, current_y = bogey.get_position()
             bogey.set_position(current_x + x_shift, current_y + y_shift)
@@ -28,7 +28,7 @@ def sweep(bogeys):
             # if not inbounds, delete
             new_x, new_y = bogey.get_position()
             if is_inbounds(new_x, new_y) == False:
-                del(bogey)
+                del(bogeys[idx])
 
     return bogeys
 

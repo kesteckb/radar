@@ -120,7 +120,7 @@ while run:
         )
 
     # Delay screen refresh
-    time.sleep(1)
+    time.sleep(.5)
     
 # Destroy Window
 root.destroy()
