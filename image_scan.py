@@ -2,7 +2,7 @@ from PIL import Image
 from statistics import mean
 
 # Open the FLIR image
-im = Image.open("images/object_detect.png")
+im = Image.open("images/object_detect_4.png")
 
 # Get pixel access to the image
 pix = im.load()
@@ -68,6 +68,7 @@ def get_ref_points(corners: list, ref_points: list) -> list:
     
     return ref_points
 
+# Return False if a midpoint is already in the bogey list, otherwise return True
 def neighbor_present(bogeys: list, point: tuple) -> bool:
     x, y = point
     
@@ -98,6 +99,5 @@ for pair in ref_points:
         pix[midpoint[0], midpoint[1]] = (255, 0, 255)
         bogeys.append(midpoint)
 
-
-print(bogeys)
 im.save("new.png")
+print(bogeys)

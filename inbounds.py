@@ -1,3 +1,5 @@
+# This function is NOT dynamic for different screen resolutions!
+
 from math import sqrt
 
 def is_inbounds(x: int, y: int) -> bool:
