@@ -2,7 +2,7 @@
 from cProfile import run
 import random
 import turtle
-from splash import *
+import time
 from tkinter import *
 from PIL import ImageTk, Image
 from sweep import sweep

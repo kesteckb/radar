@@ -2,7 +2,7 @@ from PIL import Image
 from statistics import mean
 
 # Open the FLIR image
-im = Image.open("images/object_detect_4.png")
+im = Image.open("images/object_detect_1.png")
 
 # Get pixel access to the image
 pix = im.load()
